@@ -1,4 +1,4 @@
-from vector import vector2
+from .vector import vector2
 import random
 
 class body:
