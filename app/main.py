@@ -6,7 +6,7 @@ import pygame as pg
 import math
 
 #initialize variables
-bodies = [body(100,100, 50, 100, 1, 0)]
+bodies = [body(100,100, 50, 100)]
 G = 0.0000000000667408
 
 #initialize pg
@@ -77,7 +77,7 @@ while not done:
         for attractor in bodies:
 
             if attractor != subject:
-                distance = int(math.sqrt((attractor.position.x - subject.position.x)**2 + (attractor.position.y - subject.position.y)**2))
+                distance = imath.sqrt((attractor.position.x - subject.position.x)**2 + (attractor.position.y - subject.position.y)**2)
                 if distance != 0:
                     attraction += (attractor.position - subject.position) * (attractor.mass/((distance)**3))
 
@@ -90,8 +90,8 @@ while not done:
 
     for active_body in bodies:
         pg.draw.circle(screen, (0,0,255),
-         (int(active_body.position.x*camera.zoom - camera.position.x),
-          int(active_body.position.y*camera.zoom - camera.position.y)),
+         (int(active_body.position.x*camera.zoom - camera.position.x*camera.zoom),
+          int(active_body.position.y*camera.zoom - camera.position.y*camera.zoom)),
            int(active_body.radius*camera.zoom))
 
     pg.display.flip()
