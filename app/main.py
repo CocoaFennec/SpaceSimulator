@@ -43,7 +43,7 @@ while not done:
             #lmb
             if event.button == 1:
                 pos = pg.mouse.get_pos()
-                bodies.append(body(int((pos[0] + camera.position.x + camera_offset[0])/camera.zoom), int((pos[1] + camera.position.y + camera_offset[1])/camera.zoom)))
+                bodies.append(body(int((pos[0]-camera_offset[0])/camera.zoom + camera.position.x), int((pos[1]-camera_offset[1])/camera.zoom + camera.position.y)))
 
             #mmb
             if event.button == 2:
