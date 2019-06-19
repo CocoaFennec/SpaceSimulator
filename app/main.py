@@ -6,11 +6,13 @@ import pygame as pg
 import math
 
 #initialize variables
-bodies = [body(100,100, 50), body(200,200,50)]
+bodies = [body(100,100, 50, 100, 1, 0)]
 G = 0.0000000000667408
 
 #initialize pg
 pg.init()
+clock = pg.time.Clock()
+dt = 0
 
 #gets screen resolution
 info_object = pg.display.Info()
@@ -58,7 +60,7 @@ while not done:
                 move_camera = False
 
         if move_camera == True:
-            
+
             end_pos = pg.mouse.get_pos()
 
             moved = [end_pos[0]-start_pos[0], end_pos[1]-start_pos[1]]
@@ -76,9 +78,12 @@ while not done:
 
             if attractor != subject:
                 distance = int(math.sqrt((attractor.position.x - subject.position.x)**2 + (attractor.position.y - subject.position.y)**2))
-                attraction += (attractor.mass/((distance)**3)) * (attractor.position + (-1 * subject.position))
+                if distance != 0:
+                    attraction += (attractor.position - subject.position) * (attractor.mass/((distance)**3))
 
+        subject.speed = subject.speed + ((attraction * dt)/subject.mass)
 
+        subject.position = subject.position + (subject.speed * dt)
 
 
     screen.fill((0,0,0))
@@ -88,5 +93,7 @@ while not done:
          (int(active_body.position.x*camera.zoom - camera.position.x),
           int(active_body.position.y*camera.zoom - camera.position.y)),
            int(active_body.radius*camera.zoom))
-        
+
     pg.display.flip()
+
+    dt = clock.tick(60)
